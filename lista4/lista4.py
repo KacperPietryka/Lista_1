@@ -7,6 +7,7 @@ from pypdf import PdfWriter
 import qrcode
 import cv2
 import requests
+import time
 
 def check_brackets(input):
     stack = deque()
@@ -33,8 +34,12 @@ def copy_files(list_of_files, list_of_extensions, where_save = r'C:\Users\Kacper
                 for extension in list_of_extensions: # searching for a particular extension
                     length = len(extension)
                     if file[-length:] == extension:
-                        location = os.path.join(root, file)
-                        shutil.copy(location, where_save)
+                        mod_time = os.path.getmtime(root + '\\' + file)
+                        date_now = time.time()
+                        diff = (date_now - mod_time) / (72 * 60 * 60)
+                        if(diff < 3):
+                            location = os.path.join(root, file)
+                            shutil.copy(location, where_save)
 
 def merge_PDF(catalog_with_PDFs, output = r'C:\Users\Kacper\new_file.pdf'):
     pdfWriter = PdfWriter()
@@ -49,12 +54,18 @@ def merge_PDF(catalog_with_PDFs, output = r'C:\Users\Kacper\new_file.pdf'):
 
 def change_format(file, original_type):
     with open(file, 'rb') as f:
+        div_string = file.split('.txt')
+        f_name = div_string[0] + '_changed.txt'
         file_string = f.read().decode('utf-8')
         if original_type == 'windows':
-            file_string = file_string.replace('\r', '')
+            file_string = file_string.replace('\r\n', '\n')
         elif original_type == 'unix' or original_type == 'macos':
             file_string = file_string.replace('\n', '\r\n')
-        return repr(file_string)
+        else: 
+            return 'Wrong type!'
+        with open(f_name, 'w', encoding = 'utf-8', newline = '') as new_f:
+            new_f.write(file_string)
+            return new_f.name
 
 def create_QRcode(data, filename = 'qr_code.jpg'):
     image = qrcode.make(data)
@@ -85,7 +96,7 @@ def searching(url):
     response = requests.get(url)
     if response.status_code != 200:
         return f'Error {response}! Can not open a site'
-    search = 'title'
+    search = 'title>'
     title = ''
     index = 0
     for i in response.text:
@@ -103,11 +114,11 @@ def searching(url):
 
 
 Wiki_article()
-#read_QRcode('qr_code.jpg')
+read_QRcode('qr_code.jpg')
 create_QRcode('https://en.wikipedia.org/wiki/Main_Page')
-change_format('C:\\Users\\Kacper\\Downloads\\unix_example.txt', 'unix')
+change_format('C:\\Users\\Kacper\\Downloads\\plik.txt', 'windows')
 merge_PDF(r'D:\Python App\app\app\Media\pdfs')
-copy_files([r'D:\Python App\app\app\Media', r'D:\Python App\ksiazka'], ['.jpg', '.png'])
+copy_files([r'D:\Python App\app\app\Media', r'D:\Python App\ksiazka'], ['.jpg', '.png', 'txt'])
 
 
 input_ = "<html><head></head><body></body></html>"
