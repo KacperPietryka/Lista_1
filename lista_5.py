@@ -60,6 +60,7 @@ color_2 = "#ff9966"
 color_3 = "#739900"
 color_4 = "#006666"
 color_5 = "#bbff99"
+color_6 = "#f92b39"
 
 # tworzenie widgetow
 frame = tk.Frame(master=window, width=600, height=750, bg=main_color)
@@ -82,6 +83,7 @@ submit_button = tk.Button(master = frame, text='Submit',
 swap_button = tk.Button(master = frame, text='Reverse', background=color_3, 
                         font = font, command = swap_action)
 entry = tk.Entry(master = frame, fg='grey', font=("Arial", 20), justify="left")
+exit_button = tk.Button(master=frame, font = ('Arial', 15), text='Leave application', bg = color_6, command=frame.quit)
 
 # pozycjonowanie widgetow
 
@@ -94,7 +96,7 @@ entry.insert(0, text)
 entry.place(x=150, y=340)
 menu_1.place(x = 400, y = 100)
 menu_2.place(x = 400, y = 150)
-
+exit_button.place(x = 350, y = 600)
 # eventy
 
 entry.bind("<FocusIn>", on_entry_click)
