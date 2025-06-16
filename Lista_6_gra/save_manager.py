@@ -112,7 +112,6 @@ class SaveManager():
         save_data.append(player.money)
         # data.append(player.restaurants) to nie dziala poprawnie niestety :(
         save_data.append(player.to_dict())
-        print(save_data)
         filename = f'saves/save_{index}/GameSave.pkl'
         with open(filename, 'wb') as f:
             pickle.dump(save_data, f)
@@ -133,7 +132,6 @@ class SaveManager():
         player.money = collect_data[1]
         list_of_restaurants = collect_data[2:]
         player.from_dict(list_of_restaurants)
-        #print(list_of_restaurants)
         for _, restaurant in player.restaurants:
             for item in restaurant.your_upgrades:
                 restaurant.build(screen, item)

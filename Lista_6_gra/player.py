@@ -55,7 +55,6 @@ class Player():
 
     def enter_restaurant(self, screen):
         text = []
-        print(self.restaurants)
         for restaurant in self.restaurants:
             text.append(f'Enter the restaurant: {restaurant[0]}')
         chosen_index = self.menu.menu_restaurant(screen, text, title=
