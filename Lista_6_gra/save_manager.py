@@ -20,9 +20,13 @@ class SaveManager():
                 date = datetime.datetime.fromtimestamp(edit)
                 fixed_date = date.strftime('%Y-%m-%d %H:%M:%S')
                 name = ''
-                with open(path, 'rb') as f:
-                    name = pickle.load(f)[0]
-                text[i] = f'Player name: {name}, game saved: {fixed_date}!'
+                try:
+                    with open(path, 'rb') as f:
+                        name = pickle.load(f)[0]
+                    text[i] = f'Player name: {name}, game saved: {fixed_date}!'
+                except Exception:
+                    text[i] = f'File corrupted!'
+                    print('Error')
         if additional == True:
             text.append('WARNING - IF YOU SAVE IN FILE WHICH')
             text.append('IS ALREADY USED YOU WILL OVERWRITE IT')
@@ -92,6 +96,7 @@ class SaveManager():
         with open(path, 'wb') as f:
             for i in fixed_data:
                 pickle.dump(i, f)
+    
 
     def save_game(self, player, screen):
         index = self.manage_menu(screen, 'Choose where you want to save your game', True)
@@ -101,16 +106,16 @@ class SaveManager():
         name = self.get_player_name(screen)
         self.change_leaderboard(player.money, name)
 
-        data = []
-        data.append(name)
-        data.append(player.money)
-        data.append(player.restaurants)
-
+        save_data = []
+        # to dziala bez problemu
+        save_data.append(name)
+        save_data.append(player.money)
+        # data.append(player.restaurants) to nie dziala poprawnie niestety :(
+        save_data.append(player.to_dict())
+        print(save_data)
         filename = f'saves/save_{index}/GameSave.pkl'
         with open(filename, 'wb') as f:
-            pickle.dump(data, f)
-
-        
+            pickle.dump(save_data, f)
 
     def load_game(self, player, screen):
         index = self.manage_menu(screen, 'Choose which save you want to load')
@@ -118,12 +123,21 @@ class SaveManager():
         filename = f'saves/save_{index}/GameSave.pkl'
         if not os.path.exists(filename):
             return
-        with open(filename, 'rb') as f:
-            collect_data = pickle.load(f)
-
+        try:
+            with open(filename, 'rb') as f:
+                collect_data = pickle.load(f)
+        except Exception:
+            print('Error - can not open')
+            os.remove(filename)
+            return
         player.money = collect_data[1]
-        player.restaurants[2:]
-        
+        list_of_restaurants = collect_data[2:]
+        player.from_dict(list_of_restaurants)
+        #print(list_of_restaurants)
+        for _, restaurant in player.restaurants:
+            for item in restaurant.your_upgrades:
+                restaurant.build(screen, item)
+       
 
 
 

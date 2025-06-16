@@ -43,6 +43,7 @@ while running:
             if event.key == pygame.K_r:
                 player.enter_restaurant(screen)
             if event.key == pygame.K_u:
+                print(player.to_dict())
                 player.money = restaurant.upgrade(screen, player.money)
             if event.key == pygame.K_i:
                 player.money = restaurant.buy(screen, player.money)

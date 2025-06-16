@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+from functools import partial
 from menu import Menu
 
 
@@ -95,13 +96,13 @@ class Restaurant():
     def build(self, screen, bought = ''):
         place = self.icons
         if bought == 'add music':
-            place.append(lambda: icon(screen, 17 * SIZE, 2 * SIZE, 'music', 3*SIZE, 2*SIZE))
+            place.append(partial(icon, screen, 17 * SIZE, 2 * SIZE, 'music', 3*SIZE, 2*SIZE))
         elif bought == 'new oven':
-            place.append(lambda: icon(screen, 25 * SIZE, 2 * SIZE, 'oven'))
+            place.append(partial(icon, screen, 25 * SIZE, 2 * SIZE, 'oven'))
         elif bought == 'buy a new door':
-            place.append(lambda: icon(screen, 23 * SIZE, 7 * SIZE, 'door'))
+            place.append(partial(icon, screen, 23 * SIZE, 7 * SIZE, 'door'))
         elif bought == 'better refrigerator':
-            place.append(lambda: icon(screen, 27 * SIZE, 2 * SIZE, 'refrigerator'))
+            place.append(partial( icon, screen, 27 * SIZE, 2 * SIZE, 'refrigerator'))
 
     def show_clients(self, screen):
         current_time = time.time()

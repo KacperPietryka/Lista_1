@@ -55,6 +55,7 @@ class Player():
 
     def enter_restaurant(self, screen):
         text = []
+        print(self.restaurants)
         for restaurant in self.restaurants:
             text.append(f'Enter the restaurant: {restaurant[0]}')
         chosen_index = self.menu.menu_restaurant(screen, text, title=
@@ -65,5 +66,29 @@ class Player():
             self.current_restaurant = [name, res_pos]
             load_map(name)  
         return chosen_index
+
+    def to_dict(self):
+        data = []
+        for name, restaurant in self.restaurants:
+            merge = []
+            merge.append(name)
+            merge.append(restaurant.stats)
+            merge.append(restaurant.your_upgrades)
+            merge.append(restaurant.music)
+            data.append(merge)
+        return data
+
+    def from_dict(self, data):
+        self.restaurants = []        
+        for restaurants in data:
+            for restaurant in restaurants:
+                x = Restaurant()
+                name = restaurant[0]
+                x.stats = restaurant[1]
+                x.your_upgrades = restaurant[2]
+                x.music = restaurant[3]
+                if name == 'rest1':
+                    self.current_restaurant = [name, x]
+                self.restaurants.append([name, x])   
 
 pygame.quit()
