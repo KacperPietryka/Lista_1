@@ -80,7 +80,7 @@ class Menu:
         title = 'MAIN MENU - to leave click any option below'
         options = ["Enter Restaurant - R", "Buy New Restaurant - B",
                    "Upgrade your Restaurant - U", "Buy things for your Restaurant - I",
-                   "Save game - S", "Load game - L"]
+                   "Save game - S", "Load game - L", "Enter main menu - M"]
         self.menu_restaurant(screen, options, title)
 
     def menu_restaurant(self, screen, options, title = ''):

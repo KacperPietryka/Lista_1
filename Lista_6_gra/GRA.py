@@ -38,6 +38,8 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_h:
                 menu.main_menu(screen)
+            if event.key == pygame.K_m:
+                menu.load_game(screen, player)
             if event.key == pygame.K_b:
                 player.buy_new_place(screen)
             if event.key == pygame.K_r:
