@@ -22,7 +22,7 @@ possible_upgrades = ['Improve the quality of staff',
 possible_buys = ['new oven', 'add music', 
                  'buy a new door', 'better refrigerator']
 
-buy_cost = [100, 10, 500, 40] # mozna edytowac
+buy_cost = [100, 20, 500, 70] # mozna edytowac
 
 
 def icon(screen, X, Y, icon, height = SIZE, length = SIZE): # method to draw icons
@@ -49,7 +49,7 @@ class Restaurant():
         text = []
         index = 0
         for purchase in possible_upgrades:
-            payment = self.stats[index] * 2
+            payment = self.stats[index] * 20
             text.append(f'{purchase} - cost of {payment} lvl {self.stats[index]}/5')
             index += 1
         decision = menu.menu_restaurant(screen, text, title = 'Improve your Restaurant!')
@@ -57,7 +57,7 @@ class Restaurant():
            fail.play()
            return money
 
-        payment = self.stats[decision] * 2
+        payment = self.stats[decision] * 20
 
         if self.stats[decision] >= 5:
             fail.play()

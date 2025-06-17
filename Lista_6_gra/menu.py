@@ -5,7 +5,8 @@ import pickle
 
 class Menu:
     def load_game(self, screen, player=''):
-        options = ['About the author', 'Goal of the game',  'See best scores', 'Load game','START GAME']
+        options = ['About the author', 'Goal of the game',  'See best scores', 'Load game',
+        'Change the background', 'START GAME']
         title = 'WELCOME TO THE GAME'
         index = self.menu_restaurant(screen, options, title=title)
         if index == 0:
@@ -21,12 +22,21 @@ class Menu:
             if success:
                 return True
         elif index == 4:
+            self.change()        
+        elif index == 5:
             return True
         else:
             return False
         return self.load_game(screen, player)
 
-
+    def change(self):
+        file1 = 'gallery/menu.png'
+        file2 = 'gallery/menu(1).png'
+        temp = 'gallery/temp.png'
+        os.rename(file1, temp)
+        os.rename(file2, file1)
+        os.rename(temp, file2)
+        
     def show_best(self, screen):
         path = 'leaderboard/best.txt'
         data = []
@@ -47,14 +57,15 @@ class Menu:
 
     def author(self, screen):
         text = ['Game made by Kacper Pietryka', 'Student of the first year',
-        'Studying at Politechnika Wroclawska (20 years old)']
+        'Studying at Politechnika Wroclawska (20 years old)',
+        'Approved and tested by: Jakub Czestochowski, Dawid Madrzak']
         title = 'ABOUT THE AUTHOR'
         self.menu_restaurant(screen, text, title=title)
         
 
     def goal(self, screen):
         title='MAIN GOAL'
-        text=['Help in game - type H', 'Buy all the available restaurants!',
+        text=['Help in game - H', 'Buy all the available restaurants!',
              'Buy all possible upgrades', 'Have satisfied guests',
              'Have fun',]
         self.menu_restaurant(screen, text, title=title)
@@ -67,9 +78,9 @@ class Menu:
 
     def main_menu(self, screen):
         title = 'MAIN MENU - to leave click any option below'
-        options = ["Enter Restaurant - type R", "Buy New Restaurant - type B",
-                   "Upgrade your Restaurant - type U", "Buy things for your Restaurant - type I",
-                   "Save game - type S", "Load game - type L"]
+        options = ["Enter Restaurant - R", "Buy New Restaurant - B",
+                   "Upgrade your Restaurant - U", "Buy things for your Restaurant - I",
+                   "Save game - S", "Load game - L"]
         self.menu_restaurant(screen, options, title)
 
     def menu_restaurant(self, screen, options, title = ''):
