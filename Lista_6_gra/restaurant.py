@@ -167,6 +167,5 @@ class Restaurant():
             return self.income_float
         
         return 0
-pygame.quit()
 
 

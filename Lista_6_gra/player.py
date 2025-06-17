@@ -4,9 +4,6 @@ import pygame
 from restaurant import Restaurant
 from menu import Menu
 
-pygame.init()
-pygame.mixer.init()
-
 sound = pygame.mixer
 fail = sound.Sound('music/fail.wav')
 success  = sound.Sound('music/success.wav')
@@ -90,4 +87,3 @@ class Player():
                     self.current_restaurant = [name, x]
                 self.restaurants.append([name, x])   
 
-pygame.quit()

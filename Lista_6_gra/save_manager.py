@@ -129,6 +129,7 @@ class SaveManager():
             print('Error - can not open')
             os.remove(filename)
             return
+
         player.money = collect_data[1]
         list_of_restaurants = collect_data[2:]
         player.from_dict(list_of_restaurants)

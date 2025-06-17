@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import pygame
 
-pygame.init()
-
 screen = pygame.display.set_mode((1800, 780))
 pygame.display.set_caption("Kreator map")
 
@@ -83,7 +81,6 @@ while running:
         tile.draw(screen)
     pygame.display.flip()
 
-pygame.quit()
         
 
 

@@ -23,7 +23,7 @@ class Menu:
             return True
         else:
             return False
-        return self.load_game(screen)
+        return self.load_game(screen, player)
 
 
     def show_best(self, screen):
