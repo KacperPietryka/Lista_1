@@ -88,7 +88,7 @@ class Menu:
         font = pygame.font.SysFont('Comic Sans MS', 48)
         selected = False
         chosen_index = None
-        title_settings = font.render(title, True, (255, 255, 255))
+        title_settings = font.render(title, True, (0, 0, 0))
         title_pos = title_settings.get_rect(center = (900,50))
         options.append('Leave')
 
@@ -109,7 +109,7 @@ class Menu:
             mouse_click = pygame.mouse.get_pressed()
             
             for index, option in enumerate(options):
-                text_surface = font.render(option, True, (37, 232, 69))
+                text_surface = font.render(option, True, (249, 50, 28))
                 text_rect = text_surface.get_rect(topleft=(100, 100 + index * 60))
                 
                 if text_rect.collidepoint(mouse_pos):

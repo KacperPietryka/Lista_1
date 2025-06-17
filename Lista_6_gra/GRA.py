@@ -27,6 +27,7 @@ running = menu.load_game(screen, player)
 restaurant = player.current_restaurant[1]
 
 clock = pygame.time.Clock()
+last_time = pygame.time.get_ticks()
 
 while running:
     clock.tick(60)
@@ -52,8 +53,16 @@ while running:
     screen.fill((0, 128, 255))
     for tile in tiles:
         tile.draw(screen)
+
+    current_time = pygame.time.get_ticks()
+    if current_time - last_time >= 3000:
+        for _, restaurant in player.restaurants:
+            player.money += (restaurant.stats[2] - 1) * 5
+        last_time = current_time
+
     player.money += restaurant.events(screen)
     player.show_money(screen)
+
     if restaurant.music and not channel.get_busy():
         music.play()
     pygame.display.flip()
