@@ -17,8 +17,9 @@ class Menu:
         elif index == 3:
             from save_manager import SaveManager
             sm = SaveManager()
-            sm.load_game(player, screen)
-            return True
+            success = sm.load_game(player, screen)
+            if success:
+                return True
         elif index == 4:
             return True
         else:

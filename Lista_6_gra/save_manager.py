@@ -136,7 +136,7 @@ class SaveManager():
         for _, restaurant in player.restaurants:
             for item in restaurant.your_upgrades:
                 restaurant.build(screen, item)
-       
+        return True
 
 
 
