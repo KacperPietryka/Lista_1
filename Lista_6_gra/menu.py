@@ -53,7 +53,7 @@ class Menu:
 
     def goal(self, screen):
         title='MAIN GOAL'
-        text=['Buy all the available restaurants!',
+        text=['Help in game - type H', 'Buy all the available restaurants!',
              'Buy all possible upgrades', 'Have satisfied guests',
              'Have fun',]
         self.menu_restaurant(screen, text, title=title)
