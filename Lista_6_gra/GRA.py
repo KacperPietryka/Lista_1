@@ -25,7 +25,6 @@ running = False
 running = menu.load_game(screen, player)
 
 restaurant = player.current_restaurant[1]
-restaurat_copy = [restaurant]
 
 clock = pygame.time.Clock()
 
